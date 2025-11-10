@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <link rel="shortcut icon" href="./assets/icons/pokedex-favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./styles/colors.css">
+    <!-- <link rel="stylesheet" href="./styles/fonts.css"> -->
+    <link rel="stylesheet" href="./styles/miniPokemon.css">
+    <link rel="stylesheet" href="./styles/pokemonDetails.css">
+    <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="stylesheet" href="./styles/style.css">
+
+    <script src="./scripts/templates.js"></script>
+    <script src="./scripts/script.js"></script>
+</head>
+
+<body onload="init()">
+    <header class="header-index">
+        <div>
+            <img class="header-img" src="" alt="Pokeball">
+            <b>POKEDEX</b>
+        </div>
+        <div>
+            <label for="search">Search:</label>
+            <input id="search" type="search" minlength="3" incremental>
+        </div>
+    </header>
+    <main>
+        <section id="allPokemon" class="pokemon-mini-box"> </section>
+        <section class="more-Pokemon">
+            <button class="btn-plus-pokemon" onclick="fetchPokemon()">Load More</button>
+        </section>
+    </main>
+    <dialog id="pokemonDialog">
+        <button onclick="closeDialog()">schließen</button>
+    </dialog>
+    <footer class="footer-index">
+        <span>&copy; 2025 Matthias Tausch</span>
+    </footer>
+</body>
+
+</html>

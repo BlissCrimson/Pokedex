@@ -1,0 +1,14 @@
+.btn-plus-pokemon {
+    width: 300px;
+    height: 100%;
+    font-size: 56px;
+    background-color: #faebd7;
+    border: none;
+    border-radius: 30px;
+
+}
+
+.btn-plus-pokemon:hover {
+    -webkit-box-shadow: 0px 0px 22px -4px rgba(0, 0, 0, 0.81);
+    box-shadow: 0px 0px 22px -4px rgba(0, 0, 0, 0.81);
+}

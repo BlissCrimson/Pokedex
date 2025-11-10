@@ -1,0 +1,43 @@
+.mini-pokemon {
+    border: 1px solid black;
+}
+
+.mini-pokemon-header {
+    width: 200px;
+    height: 38px;
+    background-color: antiquewhite;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+
+    h2 {
+        font-size: 18px;
+    }
+}
+
+.mini-pokemon-main {
+    width: 200px;
+    height: 174px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mini-pokemon-img {
+    height: 150px;
+}
+
+.mini-pokemon-footer {
+    width: 200px;
+    height: 56px;
+    background-color: antiquewhite;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
