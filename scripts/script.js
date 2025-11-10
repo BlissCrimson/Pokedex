@@ -24,10 +24,11 @@ const TypeData = {
     dragon: { icon: "", color: "#6F35FC" },
     dark: { icon: "", color: "#705746" },
     fairy: { icon: "", color: "#D685AD" },
-    stellar: { icon: "", color: "background: #F72325;    background: -moz - linear - gradient(left, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); background: -webkit - linear - gradient(left, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); background: linear - gradient(to right, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); " },
+    stellar: { icon: "", color: "background: #F72325; background: -moz - linear - gradient(left, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); background: -webkit - linear - gradient(left, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); background: linear - gradient(to right, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); " },
     unknown: { icon: "", color: "#9DC1B7" },
-    shadow: { icon: "", color: "background: #705746;    background: -moz-linear-gradient(left, #705746 0%, #735797 100%);    background: -webkit-linear-gradient(left, #705746 0%, #735797 100%);    background: linear-gradient(to right, #705746 0%, #735797 100%);" }
+    shadow: { icon: "", color: "background: #705746; background: -moz-linear-gradient(left, #705746 0%, #735797 100%); background: -webkit-linear-gradient(left, #705746 0%, #735797 100%); background: linear-gradient(to right, #705746 0%, #735797 100%);" }
 }
+
 const ID = [
     allPokemon = document.getElementById('allPokemon'),
     pokemonTypeRef = document.getElementById('pokemonType')
@@ -35,16 +36,18 @@ const ID = [
 
 async function init() {
     const pokemonList = await fetchPokemon();
-    renderPokemon(pokemonList);
+    // renderPokemon(pokemonList);
     showPokemon(pokemonList);
 }
 
-function openDialog(indexPokemon) {
-    // console.log(pokemonList);
-    dialogRef.show();
+function openDialog() {
+    dialogRef = document.getElementById('pokemonDialog');
+    getPokemonDialogTemplate(pokemonList, indexPokemon);
+    dialogRef.showModal();
 }
 
 function closeDialog() {
+    dialogRef = document.getElementById('pokemonDialog');
     dialogRef.close();
 }
 
@@ -56,35 +59,48 @@ async function fetchPokemon() {
     }
 }
 
-function renderPokemon(pokemonList) {
-    for (let indexPokemon = 0; indexPokemon < pokemonList.length; indexPokemon++) {
-        return indexPokemon;
-    }
-}
+// function renderPokemon(pokemonList) {
+//     for (let indexPokemon = 0; indexPokemon < pokemonList.length; indexPokemon++) {
+//         return indexPokemon;
+//     }
+// }
 
-function showPokemon(pokemonList) {
+async function showPokemon(pokemonList) {
     for (let indexPokemon = 0; indexPokemon < pokemonList.length; indexPokemon++) {
         let pokemonImg = BASE_IMG_URL + (indexPokemon + 1) + ".png";
-        const pokemonType = fetchPokemonType(indexPokemon);
+        const pokemonType = await fetchPokemonType(pokemonList, indexPokemon);
         document.getElementById('allPokemon').innerHTML += getAllPokemonTemplate(pokemonList, indexPokemon, pokemonImg, pokemonType);
     }
 }
 
-async function fetchPokemonType(indexPokemon) {
+async function fetchPokemonType(pokemonList, indexPokemon) {
     let POKEMON_URL = BASE_URL + "pokemon/" + (indexPokemon + 1) + "/";
-    const dataType = await fetch(POKEMON_URL)
-    pokemonType = await dataType.json();
+    dataType = await fetch(POKEMON_URL)
+    type = await dataType.json();
+    const pokemonType = type.types[0].type.name;
+    return pokemonType;
+
+
+
     // const pokemonType = await dataType.json();
     // pokemonType = pokemonType.types
-    // console.log(pokemonType.types);
-    return pokemonType.types[0].type.name;
-    for (let i = 0; i < 1; i++) {
-        let POKEMON_URL = BASE_URL + "pokemon/" + (indexPokemon + 1) + "/";
-        const dataType = await fetch(POKEMON_URL)
-        const pokemonType = await dataType.json();
-        pokemonType = dataType.types[i].type.name;
-        return pokemonType.results;
-    }
+    // console.log(pokemonType.types[0].type.name);
+    // console.log(type);
+
+    // return pokemonType.results;
+
+    // return pokemonType.results;
+
+    // document.getElementById('pokemonType').innerHTML += pokemonType.types[0].type.name;
+    // return pokemonType.types[0].type.name;
+    // for (let i = 0; i < 1; i++) {
+    //     let POKEMON_URL = BASE_URL + "pokemon/" + (indexPokemon + 1) + "/";
+    //     const dataType = await fetch(POKEMON_URL)
+    //     const pokemonType = await dataType.json();
+    //     pokemonType = dataType.types[i].type.name;
+    //     console.log(pokemonType.types[0].type.name);
+    //     // return pokemonType.results;
+    // }
 
     // for (let indexPokemonType = 0; indexPokemonType < pokemonType.length; indexPokemonType++) {
 

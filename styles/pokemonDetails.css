@@ -1,0 +1,10 @@
+.pokemon-dialog {
+    width: 600px;
+    height: 500px;
+    position: absolute;
+    border: none;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

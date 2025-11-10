@@ -9,7 +9,7 @@ h2 {
 main {
     width: 100%;
     max-width: 1440px;
-    background: no-repeat url("/assets/icons/pokedex-bg.svg") fixed;
+    background: no-repeat url("/assets/icons/pokedex-bg.svg") fixed center;
     margin-left: auto;
     margin-right: auto;
 }
@@ -43,7 +43,6 @@ main {
 .footer-index {
     width: 100%;
     height: 80px;
-    /* margin-top: 48px; */
     padding: 0px 16px;
     background-color: antiquewhite;
     display: flex;
