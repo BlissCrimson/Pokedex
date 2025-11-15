@@ -5,10 +5,16 @@ async function fetchPokemon() {
 }
 
 async function fetchPokemonData(data) {
+    pokemonList = [];
     for (let index = 0; index < data.length; index++) {
         const element = data[index];
-        const pokemonData = await fetch(element.url).then(r => r.json());
-        pokemonList.push(pokemonData);
+        try {
+            const pokemonData = await fetch(element.url).then(r => r.json())
+            pokemonList.push(pokemonData);
+            getPokemonDatas(index);
+            document.getElementById('allPokemon').innerHTML += getAllPokemonTemplate(index);
+        } catch (error) {
+            console.error(`Fehler bei ${element.name}:`, error);
+        }
     }
-
 }
