@@ -32,13 +32,13 @@ function getPokemonDialogTemplate(index) {
             <section name="buttons" class="area-btn">
                 
                     <button class="btn-pokemon-details bg_${pokemonList[index].types[0].type.name}" onclick="toggleFirstDetails()">
-                        <b>Details</b>
+                        <b>main</b>
                     </button>
                     <button class="btn-pokemon-details bg_${pokemonList[index].types[0].type.name}" onclick="toggleSecondDetails()">
-                        <b>Stats</b>
+                        <b>stats</b>
                     </button>
                     <button class="btn-pokemon-details bg_${pokemonList[index].types[0].type.name}" onclick="toggleThirdDetails()">
-                        <b>Evolutions</b>
+                        <b>shiny</b>
                     </button>
                 
             </section>
@@ -46,20 +46,20 @@ function getPokemonDialogTemplate(index) {
                 <div id="pokemonFirstDetails" class="pokemon-first-details ">
                     <table>
                         <tr>
-                          <td>Number:</td>
-                          <td>#${pokemonList[index].id}</td>
+                          <td>Weight</td>
+                          <td>: ${pokemonList[index].weight} kg</td>
                         </tr>
                         <tr>
-                          <td>name:</td>
-                          <td class="transform-uppercase">${pokemonList[index].name}</td>
+                          <td>Height</td>
+                          <td>: ${pokemonList[index].height} dm</td>
                         </tr>
                         <tr>
-                          <td>Weight:</td>
-                          <td>${pokemonList[index].weight} kg</td>
+                          <td>Base Experience</td>
+                          <td>: ${pokemonList[index].base_experience}</td>
                         </tr>
                         <tr>
-                          <td>Height:</td>
-                          <td>${pokemonList[index].height} m</td>
+                          <td>Abilities:</td>
+                          <td>: ${pokemonList[index].abilities[0].ability.name}, ${typeTwo(index)}</td>
                         </tr>
                     </table>
                 </div>
@@ -113,14 +113,19 @@ function getPokemonDialogTemplate(index) {
                                 </div>
                             </td>
                         </tr>
-                    </table>                    
-                <div id ="pokemonThirdDetails" class="pokemon-third-details d_none">
-                    
+                    </table> 
+                </div>                   
+                <div id="pokemonThirdDetails" class="pokemon-third-details d_none">
+                    <div class="d_flex_c_c">
+                        <img class="pokemon-detail-shiny-img " src="${pokemonList[index].sprites.other.home.front_shiny}" alt="${pokemonList[index].name}">
+                    </div>
                 </div>
             </section>
         </main>
         <footer class="footer-dialog d_flex_c_c">
+            <!-- <button class="btn-close-dialog" onclick="openDialog(${index - 1})">←</button>  -->
             <button class="btn-close-dialog" onclick="closeDialog(${index})">X</button>
+            <!-- <button class="btn-close-dialog" onclick="openDialog(${index + 1})">→</button>  -->
         </footer>
     `
 }
