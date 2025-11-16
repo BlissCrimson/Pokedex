@@ -1,39 +1,126 @@
-function getAllPokemonTemplate(pokemonList, indexPokemon, pokemonImg, pokemonType) {
+function getAllPokemonTemplate(index) {
     return `
-        <div onclick="openDialog(${indexPokemon})" class="mini-pokemon">
+        <div onclick="openDialog(${index})" class="mini-pokemon">
             <header class="mini-pokemon-header">
-                <h2>#${indexPokemon + 1}</h2>
+                <h2>#${pokemonList[index].id}</h2>
                 <h2>
-                    ${pokemonList[indexPokemon].name}
+                    ${pokemonList[index].name}
                 </h2>
             </header>
-            <main class="mini-pokemon-main bg_${pokemonType}">
-                <img class="mini-pokemon-img" src="${pokemonImg}" alt="${pokemonList[indexPokemon].name}">
+            <main class="mini-pokemon-main bg_${pokemonList[index].types[0].type.name}">
+                <img class="mini-pokemon-img" src="${pokemonList[index].sprites.other.home.front_default}" alt="${pokemonList[index].name}">
             </main>
             <footer id="pokemonType" class="mini-pokemon-footer">
                 
-                <img class="bg_${pokemonType}" src="" alt="">
+                <img class="symbol-type bg_${pokemonList[index].types[0].type.name}" src="" alt="">
             </footer>
         </div>
     `
 }
 
-function getPokemonTypeTemplate() {
+function getPokemonDialogTemplate(index) {
     return `
-        <div class="pokemon-type-symbol">
-            <img src="" alt="">
-        </div>
-    `
-}
-
-function getPokemonDialogTemplate(pokemonList, indexPokemon) {
-    return `
-        <header id="headerDialog" class="header-dialog">
-            <h2>${pokemonList[indexPokemon].name}</h2>
+        <header id="headerDialog" class="header-dialog d_flex_c_c" class="bg_${pokemonList[index].types[0].type.name}">
+            <h2>
+                ${pokemonList[index].name}
+            </h2>
         </header>
         <main id="mainDialog" class="main-dialog">
-            <img src="" alt="${pokemonList[indexPokemon].name}">
-            
+            <div class="dialog-img d_flex_c_c">
+                <img class="pokemon-detail-img " src="${pokemonList[index].sprites.other.home.front_default}" alt="${pokemonList[index].name}">
+            </div>
+            <section name="buttons" class="area-btn">
+                
+                    <button class="btn-pokemon-details bg_${pokemonList[index].types[0].type.name}" onclick="toggleFirstDetails()">
+                        <b>Details</b>
+                    </button>
+                    <button class="btn-pokemon-details bg_${pokemonList[index].types[0].type.name}" onclick="toggleSecondDetails()">
+                        <b>Stats</b>
+                    </button>
+                    <button class="btn-pokemon-details bg_${pokemonList[index].types[0].type.name}" onclick="toggleThirdDetails()">
+                        <b>Evolutions</b>
+                    </button>
+                
+            </section>
+            <section name="PokemonDetails class="d_flex_column">    
+                <div id="pokemonFirstDetails" class="pokemon-first-details ">
+                    <table>
+                        <tr>
+                          <td>Number:</td>
+                          <td>#${pokemonList[index].id}</td>
+                        </tr>
+                        <tr>
+                          <td>name:</td>
+                          <td class="transform-uppercase">${pokemonList[index].name}</td>
+                        </tr>
+                        <tr>
+                          <td>Weight:</td>
+                          <td>${pokemonList[index].weight} kg</td>
+                        </tr>
+                        <tr>
+                          <td>Height:</td>
+                          <td>${pokemonList[index].height} m</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="pokemonSecondDetails" class="pokemon-second-details d_none">
+                    <table>
+                        <tr>
+                            <td>Healthpoints:</td>
+                            <td id="skillBarHp" class="skill-bar">
+                                <div class="skills hp">
+                                    ${pokemonList[index].stats[0].base_stat}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Attack:</td>
+                            <td id="skillBarAtk" class="skill-bar">
+                                <div class="skills atk">
+                                    ${pokemonList[index].stats[1].base_stat}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Defense:</td>
+                            <td id="skillBarDef" class="skill-bar">
+                                <div class="skills def">
+                                    ${pokemonList[index].stats[2].base_stat}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Specialattack:</td>
+                            <td id="skillBarSAtk" class="skill-bar">
+                                <div class="skills satk">
+                                    ${pokemonList[index].stats[3].base_stat}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Specialdefence:</td>
+                            <td id="skillBarSDef" class="skill-bar">
+                                <div class="skills sdef">
+                                    ${pokemonList[index].stats[4].base_stat}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Speed:</td>
+                            <td id="skillBarSpd" class="skill-bar">
+                                <div class="skills spd">
+                                    ${pokemonList[index].stats[5].base_stat}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>                    
+                <div id ="pokemonThirdDetails" class="pokemon-third-details d_none">
+                    
+                </div>
+            </section>
         </main>
+        <footer class="footer-dialog d_flex_c_c">
+            <button class="btn-close-dialog" onclick="closeDialog(${index})">X</button>
+        </footer>
     `
 }
