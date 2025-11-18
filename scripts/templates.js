@@ -1,6 +1,6 @@
 function getAllPokemonTemplate(index, icons, iconsHTML) {
     return `
-        <div onclick="openDialog(${index})" class="mini-pokemon">
+        <div onclick="openDialog(${index})" class="mini-pokemon shadow_${pokemonList[index].types[0].type.name}">
             <header class="mini-pokemon-header">
                 <h2>#${pokemonList[index].id}</h2>
                 <h2>
@@ -15,6 +15,22 @@ function getAllPokemonTemplate(index, icons, iconsHTML) {
             </footer>
         </div>
     `
+}
+
+function getFirstTypeTemplate(typeName, iconUrl) {
+    return `
+        <div class="type-icon d_flex_c_c bg_${typeName}">
+            <img class="symbol-type" src="${iconUrl}" alt="${typeName}">
+        </div>
+    `;
+}
+
+function getSecondTypeTemplate(typeName, iconUrl) {
+    return `
+        <div class="type-icon d_flex_c_c bg_${typeName}">
+            <img class="symbol-type" src="${iconUrl}" alt="${typeName}">
+        </div>
+    `;
 }
 
 function getPokemonDialogTemplate(index, iconsHTML) {

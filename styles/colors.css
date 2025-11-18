@@ -1,77 +1,97 @@
+/* pokemontype colors */
 .bg_normal {
     background-color: #A8A77A;
+    --shadow: 0px 0px 23px 21px #A8A77A;
 }
 
 .bg_fighting {
     background-color: #C22E28;
+    --shadow: 0px 0px 23px 21px #C22E28;
 }
 
 .bg_flying {
     background-color: #A98FF3;
+    --shadow: 0px 0px 23px 21px #A98FF3;
 }
 
 .bg_poison {
     background-color: #A33EA1;
+    --shadow: 0px 0px 23px 21px #A33EA1;
 }
 
 .bg_ground {
     background-color: #E2BF65;
+    --shadow: 0px 0px 23px 21px #E2BF65;
 }
 
 .bg_rock {
     background-color: #B6A136;
+    --shadow: 0px 0px 23px 21px #B6A136;
 }
 
 .bg_bug {
     background-color: #A6B91A;
+    --shadow: 0px 0px 23px 21px #A6B91A;
 }
 
 .bg_ghost {
     background-color: #735797;
+    --shadow: 0px 0px 23px 21px #735797;
 }
 
 .bg_steel {
     background-color: #B7B7CE;
+    --shadow: 0px 0px 23px 21px #B7B7CE;
 }
 
 .bg_fire {
     background-color: #EE8130;
+    --shadow: 0px 0px 23px 21px #EE8130;
 }
 
 .bg_water {
     background-color: #6390F0;
+    --shadow: 0px 0px 23px 21px #6390F0;
 }
 
 .bg_grass {
     background-color: #7AC74C;
+    --shadow: 0px 0px 23px 21px #7AC74C;
 }
 
 .bg_electric {
     background-color: #F7D02C;
+    --shadow: 0px 0px 23px 21px #F7D02C;
 }
 
 .bg_psychic {
     background-color: #F95587;
+    --shadow: 0px 0px 23px 21px #F95587;
 }
 
 .bg_ice {
     background-color: #96D9D6;
+    --shadow: 0px 0px 23px 21px #96D9D6;
 }
 
 .bg_dragon {
     background-color: #6F35FC;
+    --shadow: 0px 0px 23px 21px #6F35FC;
 }
 
 .bg_dark {
     background-color: #705746;
+    --shadow: 0px 0px 23px 21px #705746;
 }
 
 .bg_fairy {
     background-color: #D685AD;
+    --shadow: 0px 0px 23px 21px #D685AD;
 }
 
 .bg_stellar {
     background: #F72325;
+    --shadow: 0px 0px 23px 21px #F72325;
     background: -moz-linear-gradient(left, #F72325 0%, #2AF532 50%, #951EF5 100%);
     background: -webkit-linear-gradient(left, #F72325 0%, #2AF532 50%, #951EF5 100%);
     background: linear-gradient(to right, #F72325 0%, #2AF532 50%, #951EF5 100%);
@@ -79,11 +99,123 @@
 
 .bg_unknown {
     background-color: #9DC1B7;
+    --shadow: 0px 0px 23px 21px #9DC1B7;
 }
 
 .bg_shadow {
     background: #705746;
+    --shadow: 0px 0px 23px 21px #705746;
     background: -moz-linear-gradient(left, #705746 0%, #735797 100%);
     background: -webkit-linear-gradient(left, #705746 0%, #735797 100%);
     background: linear-gradient(to right, #705746 0%, #735797 100%);
+}
+
+/* shadow colors */
+.shadow_normal {
+    --shadow: 0px 0px 23px 21px #A8A77A;
+}
+
+.shadow_fighting {
+    --shadow: 0px 0px 23px 21px #C22E28;
+}
+
+.shadow_flying {
+    --shadow: 0px 0px 23px 21px #A98FF3;
+}
+
+.shadow_poison {
+    --shadow: 0px 0px 23px 21px #A33EA1;
+}
+
+.shadow_ground {
+    --shadow: 0px 0px 23px 21px #E2BF65;
+}
+
+.shadow_rock {
+    --shadow: 0px 0px 23px 21px #B6A136;
+}
+
+.shadow_bug {
+    --shadow: 0px 0px 23px 21px #A6B91A;
+}
+
+.shadow_ghost {
+    --shadow: 0px 0px 23px 21px #735797;
+}
+
+.shadow_steel {
+    --shadow: 0px 0px 23px 21px #B7B7CE;
+}
+
+.shadow_fire {
+    --shadow: 0px 0px 23px 21px #EE8130;
+}
+
+.shadow_water {
+    --shadow: 0px 0px 23px 21px #6390F0;
+}
+
+.shadow_grass {
+    --shadow: 0px 0px 23px 21px #7AC74C;
+}
+
+.shadow_electric {
+    --shadow: 0px 0px 23px 21px #F7D02C;
+}
+
+.shadow_psychic {
+    --shadow: 0px 0px 23px 21px #F95587;
+}
+
+.shadow_ice {
+    --shadow: 0px 0px 23px 21px #96D9D6;
+}
+
+.shadow_dragon {
+    --shadow: 0px 0px 23px 21px #6F35FC;
+}
+
+.shadow_dark {
+    --shadow: 0px 0px 23px 21px #705746;
+}
+
+.shadow_fairy {
+    --shadow: 0px 0px 23px 21px #D685AD;
+}
+
+.shadow_stellar {
+    --shadow: 0px 0px 23px 21px #F72325;
+}
+
+.shadow_unknown {
+    --shadow: 0px 0px 23px 21px #9DC1B7;
+}
+
+.shadow_shadow {
+    --shadow: 0px 0px 23px 21px #705746;
+}
+
+/* skill bar colors */
+.hp {
+    background-color: red;
+}
+
+.atk {
+    background-color: yellow;
+}
+
+.def {
+    background-color: greenyellow;
+}
+
+.satk {
+    background-color: aqua;
+}
+
+.sdef {
+    background-color: navy;
+}
+
+.spd {
+    background-color: purple;
 }

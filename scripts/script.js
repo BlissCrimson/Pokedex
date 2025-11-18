@@ -28,6 +28,7 @@ async function openDialog(index) {
     let pokemonType = pokemonList[index].types[0].type.name;
     dialogRef.classList.add(`bg_${pokemonType}`);
     dialogRef.showModal();
+    document.body.classList.add("no-scroll");
 }
 
 function closeDialog(index) {
@@ -35,6 +36,7 @@ function closeDialog(index) {
     let pokemonType = pokemonList[index].types[0].type.name;
     dialogRef.classList.remove(`bg_${pokemonType}`)
     dialogRef.close();
+    document.body.classList.remove("no-scroll");
 }
 
 function getPokemonTypeIcons(index) {
@@ -49,18 +51,10 @@ function getPokemonTypeIcons(index) {
 
     let iconsHTML = "";
     if (firstTypeIcon) {
-        iconsHTML += `
-        <div class="type-icon d_flex_c_c bg_${firstAttribut}">
-            <img class="symbol-type" src="${firstTypeIcon}" alt="${firstAttribut}">
-        </div>
-    `;
+        iconsHTML += getFirstTypeTemplate(firstAttribut, firstTypeIcon);
     }
     if (secondTypeIcon) {
-        iconsHTML += `
-        <div class="type-icon d_flex_c_c bg_${secondAttribut}">
-            <img class="symbol-type" src="${secondTypeIcon}" alt="${secondAttribut}">
-        </div>
-    `;
+        iconsHTML += getSecondTypeTemplate(secondAttribut, secondTypeIcon);
     }
     return iconsHTML;
 }

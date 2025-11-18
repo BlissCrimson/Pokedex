@@ -1,6 +1,12 @@
-/* .mini-pokemon {
-    border: 1px solid black;
-} */
+.mini-pokemon {
+    transition: box-shadow 0.25s ease;
+}
+
+.mini-pokemon:hover {
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
 
 .mini-pokemon-header {
     width: 200px;
