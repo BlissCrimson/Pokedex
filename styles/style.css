@@ -13,8 +13,17 @@ table {
 td {
     width: auto;
 }
-.search-results{
+
+.search-results {
     position: relative;
+}
+
+.header-content{
+    width: 100%;
+    max-width: 1390px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .header-index {
     width: 100%;
@@ -23,7 +32,7 @@ td {
     padding: 0px 16px;
     background-color: antiquewhite;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -32,6 +41,7 @@ td {
     justify-content: center;
     align-items: center;
     gap: 3px;
+
     b {
         font-size: 40px;
     }
