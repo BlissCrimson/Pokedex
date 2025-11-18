@@ -35,6 +35,12 @@ a {
     align-items: center;
 }
 
+.d_flex_se_c {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 /* overlay, dialog, modal */
 .no-scroll {
     overflow: hidden;
