@@ -9,12 +9,14 @@
     <link rel="stylesheet" href="./styles/assets.css">
     <link rel="stylesheet" href="./styles/colors.css">
     <link rel="stylesheet" href="./styles/fonts.css">
+    <link rel="stylesheet" href="./styles/loadingSpinner.css">
     <link rel="stylesheet" href="./styles/miniPokemon.css">
     <link rel="stylesheet" href="./styles/pokemonDetails.css">
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./styles/style.css">
 
     <script src="./scripts/allVariables.js"></script>
+    <script src="./scripts/loadingSpinner.js"></script>
     <script src="./scripts/templates.js"></script>
     <script src="./scripts/fetchApi.js"></script>
 </head>
@@ -30,7 +32,13 @@
             <div id="searchResults" class="search-results"></div>
         </div>
     </header>
+
     <main>
+        <section name="loading spinner">
+            <div id="loadingSpinner" class="spinner d_none">
+                <img class="spinner-img" src="./assets/icons/pokeball-duo_icon.svg" alt="Pokeball Duo">
+            </div>
+        </section>
         <section id="allPokemon" class="pokemon-mini-box"></section>
         <section class="more-Pokemon">
             <button class="btn-plus-pokemon" onclick="nextPokemon()">Load More</button>

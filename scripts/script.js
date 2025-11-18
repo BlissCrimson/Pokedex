@@ -1,6 +1,6 @@
 // start function, onload from body
 async function init() {
-    // loadingSpinner();
+    showSpinner();
     try {
         pokemonList = await fetchPokemon();
         await fetchPokemonData(pokemonList);
@@ -8,8 +8,10 @@ async function init() {
         console.error("Fehler beim Initialisieren:", error)
     }
     currentNames = pokemonList;
-    // renderNames();
-    renderNames();
+    setTimeout(() => {
+        hideSpinner();
+        renderNames();
+    }, 2000);
 }
 
 // Open/close Dialog
@@ -90,7 +92,7 @@ function toggleThirdDetails() {
 }
 
 async function nextPokemon() {
-    // loadingSpinner();
+    showSpinner();
     try {
         pokemonList = await fetchNextPokemon();
         // await fetchPokemonData(pokemonList);
@@ -98,7 +100,9 @@ async function nextPokemon() {
     } catch (error) {
         console.error("Fehler beim Initialisieren:", error)
     }
-
+    setTimeout(() => {
+        hideSpinner();
+    }, 2000);
 }
 
 // search function
