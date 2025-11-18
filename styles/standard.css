@@ -35,6 +35,11 @@ a {
     align-items: center;
 }
 
+/* overlay, dialog, modal */
+.no-scroll {
+    overflow: hidden;
+}
+
 .overlay {
     position: absolute;
     top: 0;
