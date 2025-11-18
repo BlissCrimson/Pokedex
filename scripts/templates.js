@@ -1,4 +1,4 @@
-function getAllPokemonTemplate(index) {
+function getAllPokemonTemplate(index, icons, iconsHTML) {
     return `
         <div onclick="openDialog(${index})" class="mini-pokemon">
             <header class="mini-pokemon-header">
@@ -11,14 +11,15 @@ function getAllPokemonTemplate(index) {
                 <img class="mini-pokemon-img" src="${pokemonList[index].sprites.other.home.front_default}" alt="${pokemonList[index].name}">
             </main>
             <footer id="pokemonType" class="mini-pokemon-footer">
-                
-                <img class="symbol-type bg_${pokemonList[index].types[0].type.name}" src="" alt="">
+                ${icons}
             </footer>
         </div>
     `
 }
 
-function getPokemonDialogTemplate(index) {
+function getPokemonDialogTemplate(index, iconsHTML) {
+    const ability1 = pokemonList[index].abilities[0]?.ability?.name || "N/A";
+    const ability2 = pokemonList[index].abilities[1]?.ability?.name || "";
     return `
         <header id="headerDialog" class="header-dialog d_flex_c_c" class="bg_${pokemonList[index].types[0].type.name}">
             <h2>
@@ -42,8 +43,8 @@ function getPokemonDialogTemplate(index) {
                     </button>
                 
             </section>
-            <section name="PokemonDetails class="d_flex_column">    
-                <div id="pokemonFirstDetails" class="pokemon-first-details ">
+            <section name="PokemonDetails" class="d_flex_column">    
+                <div id="pokemonFirstDetails" class="pokemon-first-details">
                     <table>
                         <tr>
                           <td>Weight</td>
@@ -59,8 +60,8 @@ function getPokemonDialogTemplate(index) {
                         </tr>
                         <tr>
                           <td>Abilities:</td>
-                          <td>: ${pokemonList[index].abilities[0].ability.name}, ${typeTwo(index)}</td>
-                        </tr>
+                          <td>: ${ability1}${ability2 ? ", " + ability2 : ""}</td>
+                        </tr>                        
                     </table>
                 </div>
                 <div id="pokemonSecondDetails" class="pokemon-second-details d_none">
@@ -68,7 +69,7 @@ function getPokemonDialogTemplate(index) {
                         <tr>
                             <td>Healthpoints:</td>
                             <td id="skillBarHp" class="skill-bar">
-                                <div class="skills hp">
+                                <div class="skills hp" style="--value:${pokemonList[index].stats[0].base_stat};">
                                     ${pokemonList[index].stats[0].base_stat}
                                 </div>
                             </td>
@@ -76,7 +77,7 @@ function getPokemonDialogTemplate(index) {
                         <tr>
                             <td>Attack:</td>
                             <td id="skillBarAtk" class="skill-bar">
-                                <div class="skills atk">
+                                <div class="skills atk" style="--value:${pokemonList[index].stats[1].base_stat};">
                                     ${pokemonList[index].stats[1].base_stat}
                                 </div>
                             </td>
@@ -84,7 +85,7 @@ function getPokemonDialogTemplate(index) {
                         <tr>
                             <td>Defense:</td>
                             <td id="skillBarDef" class="skill-bar">
-                                <div class="skills def">
+                                <div class="skills def" style="--value:${pokemonList[index].stats[2].base_stat};">
                                     ${pokemonList[index].stats[2].base_stat}
                                 </div>
                             </td>
@@ -92,7 +93,7 @@ function getPokemonDialogTemplate(index) {
                         <tr>
                             <td>Specialattack:</td>
                             <td id="skillBarSAtk" class="skill-bar">
-                                <div class="skills satk">
+                                <div class="skills satk" style="--value:${pokemonList[index].stats[3].base_stat};">
                                     ${pokemonList[index].stats[3].base_stat}
                                 </div>
                             </td>
@@ -100,7 +101,7 @@ function getPokemonDialogTemplate(index) {
                         <tr>
                             <td>Specialdefence:</td>
                             <td id="skillBarSDef" class="skill-bar">
-                                <div class="skills sdef">
+                                <div class="skills sdef" style="--value:${pokemonList[index].stats[4].base_stat};"></div>
                                     ${pokemonList[index].stats[4].base_stat}
                                 </div>
                             </td>
@@ -108,7 +109,7 @@ function getPokemonDialogTemplate(index) {
                         <tr>
                             <td>Speed:</td>
                             <td id="skillBarSpd" class="skill-bar">
-                                <div class="skills spd">
+                                <div class="skills spd" style="--value:${pokemonList[index].stats[5].base_stat};">
                                     ${pokemonList[index].stats[5].base_stat}
                                 </div>
                             </td>

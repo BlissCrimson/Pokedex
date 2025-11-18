@@ -5,6 +5,7 @@ const POKEMON_TYPE_URL = ""
 
 const allPokemon = document.getElementById('allPokemon');
 const dialogRef = document.getElementById('pokemonDialog');
+const searchResults = document.getElementById('searchResults');
 
 let pokemonFirstDetailsRef = document.getElementById('pokemonFirstDetails');
 let pokemonSecondDetailsRef = document.getElementById('pokemonSecondDetails');
@@ -12,6 +13,7 @@ let pokemonThirdDetailsRef = document.getElementById('pokemonThirdDetails');
 
 let pokemonList = [];
 let pokemonNames = [];
+let currentNames = [];
 
 let limit = 20;
 let offset = 20;

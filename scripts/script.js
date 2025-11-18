@@ -1,116 +1,131 @@
-const BASE_URL = "https://pokeapi.co/api/v2/";
-const BASE_IMG_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/";
-const POKEMON_TYPE_URL = ""
-const limit = 20;
-let offset = 20;
-let POKEMON_Load_URL = BASE_URL + "pokemon?limit=20&offset=0";
-
-const TypeData = {
-    normal: { icon: "", color: "#A8A77A" },
-    fighting: { icon: "", color: "#C22E28" },
-    flying: { icon: "", color: "#A98FF3" },
-    poison: { icon: "", color: "#A33EA1" },
-    ground: { icon: "", color: "#E2BF65" },
-    rock: { icon: "", color: "#B6A136" },
-    bug: { icon: "", color: "#A6B91A" },
-    ghost: { icon: "", color: "#735797" },
-    steel: { icon: "", color: "#B7B7CE" },
-    fire: { icon: "", color: "#EE8130" },
-    water: { icon: "", color: "#6390F0" },
-    grass: { icon: "", color: "#7AC74C" },
-    electric: { icon: "", color: "#F7D02C" },
-    psychic: { icon: "", color: "#F95587" },
-    ice: { icon: "", color: "#96D9D6" },
-    dragon: { icon: "", color: "#6F35FC" },
-    dark: { icon: "", color: "#705746" },
-    fairy: { icon: "", color: "#D685AD" },
-    stellar: { icon: "", color: "background: #F72325; background: -moz - linear - gradient(left, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); background: -webkit - linear - gradient(left, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); background: linear - gradient(to right, #F72325 0 %, #2AF532 50 %, #951EF5 100 %); " },
-    unknown: { icon: "", color: "#9DC1B7" },
-    shadow: { icon: "", color: "background: #705746; background: -moz-linear-gradient(left, #705746 0%, #735797 100%); background: -webkit-linear-gradient(left, #705746 0%, #735797 100%); background: linear-gradient(to right, #705746 0%, #735797 100%);" }
-}
-
-const ID = [
-    allPokemon = document.getElementById('allPokemon'),
-    pokemonTypeRef = document.getElementById('pokemonType')
-]
-
+// start function, onload from body
 async function init() {
-    const pokemonList = await fetchPokemon();
-    // renderPokemon(pokemonList);
-    showPokemon(pokemonList);
+    // loadingSpinner();
+    try {
+        pokemonList = await fetchPokemon();
+        await fetchPokemonData(pokemonList);
+    } catch (error) {
+        console.error("Fehler beim Initialisieren:", error)
+    }
+    currentNames = pokemonList;
+    // renderNames();
+    renderNames();
 }
 
-function openDialog() {
-    dialogRef = document.getElementById('pokemonDialog');
-    getPokemonDialogTemplate(pokemonList, indexPokemon);
+// Open/close Dialog
+async function openDialog(index) {
+    let dialogRef = document.getElementById('pokemonDialog');
+    if (!pokemonList[index]) {
+        console.error("Ungültier Pokemon Index", index);
+        return;
+    }
+    const iconsHTML = getPokemonTypeIcons(index);
+    document.getElementById('pokemonDialog').innerHTML = getPokemonDialogTemplate(index, iconsHTML);
+    updateRefs();
+
+    let pokemonType = pokemonList[index].types[0].type.name;
+    dialogRef.classList.add(`bg_${pokemonType}`);
     dialogRef.showModal();
 }
 
-function closeDialog() {
-    dialogRef = document.getElementById('pokemonDialog');
+function closeDialog(index) {
+    let dialogRef = document.getElementById('pokemonDialog');
+    let pokemonType = pokemonList[index].types[0].type.name;
+    dialogRef.classList.remove(`bg_${pokemonType}`)
     dialogRef.close();
 }
 
-async function fetchPokemon() {
-    const response = await fetch(POKEMON_Load_URL);
-    if (!allPokemon) {
-        const data = await response.json();
-        return data.results;
+function getPokemonTypeIcons(index) {
+    updateRefs(index);
+    const firstAttribut = pokemonList[index].types[0].type.name;
+    const firstType = TypeData[firstAttribut];
+    const firstTypeIcon = firstType?.icon;
+
+    const secondAttribut = pokemonList[index].types[1]?.type?.name;
+    const secondType = secondAttribut ? TypeData[secondAttribut] : null;
+    const secondTypeIcon = secondType?.icon;
+
+    let iconsHTML = "";
+    if (firstTypeIcon) {
+        iconsHTML += `
+        <div class="type-icon d_flex_c_c bg_${firstAttribut}">
+            <img class="symbol-type" src="${firstTypeIcon}" alt="${firstAttribut}">
+        </div>
+    `;
     }
+    if (secondTypeIcon) {
+        iconsHTML += `
+        <div class="type-icon d_flex_c_c bg_${secondAttribut}">
+            <img class="symbol-type" src="${secondTypeIcon}" alt="${secondAttribut}">
+        </div>
+    `;
+    }
+    return iconsHTML;
 }
 
-// function renderPokemon(pokemonList) {
-//     for (let indexPokemon = 0; indexPokemon < pokemonList.length; indexPokemon++) {
-//         return indexPokemon;
-//     }
-// }
-
-async function showPokemon(pokemonList) {
-    for (let indexPokemon = 0; indexPokemon < pokemonList.length; indexPokemon++) {
-        let pokemonImg = BASE_IMG_URL + (indexPokemon + 1) + ".png";
-        const pokemonType = await fetchPokemonType(pokemonList, indexPokemon);
-        document.getElementById('allPokemon').innerHTML += getAllPokemonTemplate(pokemonList, indexPokemon, pokemonImg, pokemonType);
-    }
+function updateRefs() {
+    pokemonFirstDetailsRef = document.getElementById('pokemonFirstDetails');
+    pokemonSecondDetailsRef = document.getElementById('pokemonSecondDetails');
+    pokemonThirdDetailsRef = document.getElementById('pokemonThirdDetails');
+    pokemonType1Ref = document.getElementById('pokemonType1');
+    pokemonType2Ref = document.getElementById('pokemonType2');
 }
 
-async function fetchPokemonType(pokemonList, indexPokemon) {
-    let POKEMON_URL = BASE_URL + "pokemon/" + (indexPokemon + 1) + "/";
-    dataType = await fetch(POKEMON_URL)
-    type = await dataType.json();
-    const pokemonType = type.types[0].type.name;
-    return pokemonType;
+function toggleFirstDetails() {
+    pokemonFirstDetailsRef.classList.remove('d_none');
+    pokemonThirdDetailsRef.classList.add('d_none');
+    pokemonSecondDetailsRef.classList.add('d_none');
+}
 
+function toggleSecondDetails() {
+    pokemonSecondDetailsRef.classList.remove('d_none');
+    pokemonThirdDetailsRef.classList.add('d_none');
+    pokemonFirstDetailsRef.classList.add('d_none');
+}
 
+function toggleThirdDetails() {
+    pokemonThirdDetailsRef.classList.remove('d_none');
+    pokemonFirstDetailsRef.classList.add('d_none');
+    pokemonSecondDetailsRef.classList.add('d_none');
+}
 
-    // const pokemonType = await dataType.json();
-    // pokemonType = pokemonType.types
-    // console.log(pokemonType.types[0].type.name);
-    // console.log(type);
+async function nextPokemon() {
+    // loadingSpinner();
+    try {
+        pokemonList = await fetchNextPokemon();
+        // await fetchPokemonData(pokemonList);
+        offset += limit;
+    } catch (error) {
+        console.error("Fehler beim Initialisieren:", error)
+    }
 
-    // return pokemonType.results;
+}
 
-    // return pokemonType.results;
+// search function
+function renderNames() {
+    const pokeContainer = document.getElementById('allPokemon');
+    let search = "";
+    if (currentNames.length === 0) {
+        for (let i = 0; i < pokemonList.length; i++) {
+            const icons = getPokemonTypeIcons(i);
+            search += getAllPokemonTemplate(i, icons);
+        }
+    } else {
+        for (let i = 0; i < currentNames.length; i++) {
+            const searchIndex = pokemonList.indexOf(currentNames[i]);
+            const icons = getPokemonTypeIcons(searchIndex);
+            search += getAllPokemonTemplate(searchIndex, icons);
+        }
+    }
+    pokeContainer.innerHTML = search;
+}
 
-    // document.getElementById('pokemonType').innerHTML += pokemonType.types[0].type.name;
-    // return pokemonType.types[0].type.name;
-    // for (let i = 0; i < 1; i++) {
-    //     let POKEMON_URL = BASE_URL + "pokemon/" + (indexPokemon + 1) + "/";
-    //     const dataType = await fetch(POKEMON_URL)
-    //     const pokemonType = await dataType.json();
-    //     pokemonType = dataType.types[i].type.name;
-    //     console.log(pokemonType.types[0].type.name);
-    //     // return pokemonType.results;
-    // }
-
-    // for (let indexPokemonType = 0; indexPokemonType < pokemonType.length; indexPokemonType++) {
-
-    //     if (indexPokemonType.length > 1) {
-    //         return pokemonTypeRef.innerHTML = pokemonType[indexPokemonType]
-    //     }
-    //     if (pokemonType < 2) {
-
-    //     }
-    // }
-
-    // return pokemonTypeRef.innerHTML;
+function searchPokemonNames(filterWord) {
+    filterWord = document.getElementById('search').value.toLowerCase();
+    if (filterWord.length >= 3) {
+        currentNames = pokemonList.filter(p => p.name.toLowerCase().includes(filterWord));
+    } else {
+        currentNames = [];
+    }
+    renderNames();
 }

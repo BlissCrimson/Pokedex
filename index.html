@@ -21,13 +21,13 @@
 
 <body onload="init()">
     <header class="header-index">
-        <div>
-            <img class="header-img" src="" alt="Pokeball">
-            <b>POKEDEX</b>
+        <div class="header-logo">
+            <b>P</b><img class="header-img" src="./assets/icons/pokeball.svg" alt="Pokeball"> <b>KEDEX</b>
         </div>
         <div>
             <label for="search">Search:</label>
-            <input id="search" type="search" minlength="3" onkeypress="searchPokemonNames()" incremental>
+            <input id="search" type="search" minlength="3" oninput="searchPokemonNames()" incremental>
+            <div id="searchResults" class="search-results"></div>
         </div>
     </header>
     <main>
