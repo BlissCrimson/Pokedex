@@ -101,7 +101,7 @@ function getPokemonDialogTemplate(index, iconsHTML) {
                         <tr>
                             <td>Specialdefence:</td>
                             <td id="skillBarSDef" class="skill-bar">
-                                <div class="skills sdef" style="--value:${pokemonList[index].stats[4].base_stat};"></div>
+                                <div class="skills sdef" style="--value:${pokemonList[index].stats[4].base_stat};">
                                     ${pokemonList[index].stats[4].base_stat}
                                 </div>
                             </td>
