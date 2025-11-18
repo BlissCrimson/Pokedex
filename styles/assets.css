@@ -77,28 +77,3 @@
     width: calc(var(--value) * 1%);
     transition: width 0.3s ease;
 }
-
-.hp {
-    background-color: red;
-
-}
-
-.atk {
-    background-color: yellow;
-}
-
-.def {
-    background-color: greenyellow;
-}
-
-.satk {
-    background-color: aqua;
-}
-
-.sdef {
-    background-color: navy;
-}
-
-.spd {
-    background-color: purple;
-}
