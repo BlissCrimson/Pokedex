@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./styles/loadingSpinner.css">
     <link rel="stylesheet" href="./styles/miniPokemon.css">
     <link rel="stylesheet" href="./styles/pokemonDetails.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./styles/style.css">
 
@@ -23,13 +24,15 @@
 
 <body onload="init()">
     <header class="header-index">
-        <div class="header-logo">
-            <b>P</b><img class="header-img" src="./assets/icons/pokeball.svg" alt="Pokeball"> <b>KEDEX</b>
-        </div>
-        <div>
-            <label for="search">Search:</label>
-            <input id="search" type="search" minlength="3" oninput="searchPokemonNames()" incremental>
-            <div id="searchResults" class="search-results"></div>
+        <div class="header-content">
+            <div class="header-logo">
+                <b>P</b><img class="header-img" src="./assets/icons/pokeball.svg" alt="Pokeball"> <b>KEDEX</b>
+            </div>
+            <div>
+                <label for="search">Search:</label>
+                <input id="search" type="search" minlength="3" oninput="searchPokemonNames()" incremental>
+                <div id="searchResults" class="search-results"></div>
+            </div>
         </div>
     </header>
 

@@ -1,0 +1,12 @@
+@media (max-width: 450px) {
+    .header-content {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+@media (max-width: 400px){
+    .spinner-img{
+        width: 250px;
+        height: 250px;
+    }
+}
