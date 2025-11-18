@@ -1,10 +1,57 @@
-.pokemon-dialog {
-    width: 600px;
-    height: 500px;
-    position: absolute;
-    border: none;
-    border-radius: 30px;
+/* header area */
+.header-dialog {
+    height: 50px;
+
+}
+
+/* main area */
+.main-dialog {
+    height: calc(100% - 50px - 50px);
+}
+
+.dialog-img {
+    width: 100%;
+}
+
+.pokemon-detail-img {
+    width: 400x;
+    height: 200px;
+}
+
+.area-btn {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+}
+
+/* Pokemon Datas */
+.pokemon-first-details {
+    width: 100%;
+    padding: 5px 5px;
+}
+
+.pokemon-second-details {
+    width: 100%;
+    padding: 5px 5px;
+}
+
+.pokemon-third-details {
+    width: 100%;
+    height: 100%;
+    /* padding: 5px 5px; */
+}
+
+.pokemon-detail-shiny-img {
+    height: 160px;
+}
+
+.pokemon-stats {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* footer area */
+.footer-dialog {
+    height: 50px;
 }
