@@ -139,10 +139,18 @@ function getPokemonDialogTemplate(index, iconsHTML) {
                 </div>
             </section>
         </main>
-        <footer class="footer-dialog d_flex_c_c">
-            <!-- <button class="btn-close-dialog" onclick="openDialog(${index - 1})">←</button>  -->
+        <footer class="footer-dialog d_flex_se_c">
+            <button class="btn-close-dialog" onclick="openDialog(${index - 1})">←</button>
             <button class="btn-close-dialog" onclick="closeDialog(${index})">X</button>
-            <!-- <button class="btn-close-dialog" onclick="openDialog(${index + 1})">→</button>  -->
+            <button class="btn-close-dialog" onclick="openDialog(${index + 1})">→</button>
         </footer>
     `
+}
+
+function getNoSearchTemplate(filterWord){
+    return `
+        <div class="no-search-results">
+            no results for "${filterWord}" find.
+        </div>
+    `;
 }

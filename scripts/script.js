@@ -17,6 +17,12 @@ async function init() {
 // Open/close Dialog
 async function openDialog(index) {
     let dialogRef = document.getElementById('pokemonDialog');
+    if (index < 0) {
+        index = pokemonList.length - 1;
+    }
+    if (index > pokemonList.length - 1) {
+        index = 0;
+    }
     if (!pokemonList[index]) {
         console.error("Ungültier Pokemon Index", index);
         return;
@@ -102,25 +108,43 @@ async function nextPokemon() {
 // search function
 function renderNames() {
     const pokeContainer = document.getElementById('allPokemon');
+
+    const filterWord = document.getElementById('search').value.toLowerCase();
+    if (filterWord.length >= 1 && currentNames.length === 0) {
+        document.getElementById('allPokemon').innerHTML = getNoSearchTemplate(filterWord);
+        return;
+    }
     let search = "";
     if (currentNames.length === 0) {
-        for (let i = 0; i < pokemonList.length; i++) {
-            const icons = getPokemonTypeIcons(i);
-            search += getAllPokemonTemplate(i, icons);
-        }
+        search = noSearch();
     } else {
-        for (let i = 0; i < currentNames.length; i++) {
-            const searchIndex = pokemonList.indexOf(currentNames[i]);
-            const icons = getPokemonTypeIcons(searchIndex);
-            search += getAllPokemonTemplate(searchIndex, icons);
-        }
+        search = renderSearch();
     }
     pokeContainer.innerHTML = search;
 }
 
+function noSearch() {
+    let search = "";
+    for (let i = 0; i < pokemonList.length; i++) {
+        const icons = getPokemonTypeIcons(i);
+        search += getAllPokemonTemplate(i, icons);
+    }
+    return search;
+}
+
+function renderSearch() {
+    let search = "";
+    for (let i = 0; i < currentNames.length; i++) {
+        const searchIndex = pokemonList.indexOf(currentNames[i]);
+        const icons = getPokemonTypeIcons(searchIndex);
+        search += getAllPokemonTemplate(searchIndex, icons);
+    }
+    return search;
+}
+
 function searchPokemonNames(filterWord) {
     filterWord = document.getElementById('search').value.toLowerCase();
-    if (filterWord.length >= 3) {
+    if (filterWord.length >= 1) {
         currentNames = pokemonList.filter(p => p.name.toLowerCase().includes(filterWord));
     } else {
         currentNames = [];
