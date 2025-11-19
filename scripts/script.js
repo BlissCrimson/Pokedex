@@ -103,8 +103,6 @@ async function nextPokemon() {
     showSpinner();
     try {
         pokemonList = await fetchNextPokemon();
-        // await fetchPokemonData(pokemonList);
-        offset += limit;
     } catch (error) {
         console.error("Fehler beim Initialisieren:", error)
     }
