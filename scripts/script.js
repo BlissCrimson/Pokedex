@@ -17,6 +17,21 @@ async function init() {
 // Open/close Dialog
 async function openDialog(index) {
     let dialogRef = document.getElementById('pokemonDialog');
+    index = dialogIndex(index);
+    if (index === null) return;
+    const iconsHTML = getPokemonTypeIcons(index);
+    document.getElementById('pokemonDialog').innerHTML = getPokemonDialogTemplate(index, iconsHTML);
+    updateRefs();
+    dialogRef.classList.forEach(cls => {
+        if (cls.startsWith("bg_")) dialogRef.classList.remove(cls);
+    });
+    let pokemonType = pokemonList[index].types[0].type.name;
+    dialogRef.showModal();
+    document.body.classList.add("no-scroll");
+    dialogRef.classList.add(`bg_${pokemonType}`);
+}
+
+function dialogIndex(index) {
     if (index < 0) {
         index = pokemonList.length - 1;
     }
@@ -25,22 +40,15 @@ async function openDialog(index) {
     }
     if (!pokemonList[index]) {
         console.error("Ungültier Pokemon Index", index);
-        return;
+        return null;
     }
-    const iconsHTML = getPokemonTypeIcons(index);
-    document.getElementById('pokemonDialog').innerHTML = getPokemonDialogTemplate(index, iconsHTML);
-    updateRefs();
-
-    let pokemonType = pokemonList[index].types[0].type.name;
-    dialogRef.classList.add(`bg_${pokemonType}`);
-    dialogRef.showModal();
-    document.body.classList.add("no-scroll");
+    return index;
 }
 
 function closeDialog(index) {
     let dialogRef = document.getElementById('pokemonDialog');
     let pokemonType = pokemonList[index].types[0].type.name;
-    dialogRef.classList.remove(`bg_${pokemonType}`)
+    dialogRef.classList.remove(`bg_${pokemonType}`);
     dialogRef.close();
     document.body.classList.remove("no-scroll");
 }
