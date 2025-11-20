@@ -14,7 +14,7 @@ let pokemonThirdDetailsRef = document.getElementById('pokemonThirdDetails');
 let pokemonList = [];
 let pokemonNames = [];
 let currentNames = [];
-
+let actuallyList = pokemonList;
 let limit = 20;
 let offset = 20;
 
