@@ -20,6 +20,7 @@
     <script src="./scripts/loadingSpinner.js"></script>
     <script src="./scripts/templates.js"></script>
     <script src="./scripts/fetchApi.js"></script>
+    <script src="./scripts/searchPokemon.js"></script>
 </head>
 
 <body onload="init()">
@@ -29,9 +30,12 @@
                 <b>P</b><img class="header-img" src="./assets/icons/pokeball.svg" alt="Pokeball"> <b>KEDEX</b>
             </div>
             <div>
-                <label for="search">Search:</label>
-                <input id="search" type="search" minlength="3" oninput="searchPokemonNames()" incremental>
-                <div id="searchResults" class="search-results"></div>
+                <form action="">
+                    <label for="search">Search:</label>
+                    <input id="search" type="search" minlength="3" incremental>
+                    <div id="searchResults" class="search-results"></div>
+                    <button class="btn-search" onclick="searchPokemonNames()">Search</button>
+                </form>
             </div>
         </div>
     </header>
