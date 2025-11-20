@@ -29,11 +29,14 @@
             <div class="header-logo">
                 <b>P</b><img class="header-img" src="./assets/icons/pokeball.svg" alt="Pokeball"> <b>KEDEX</b>
             </div>
-            <div>
+            <div class="d_flex_column_c_c">
                 <label for="search">Search:</label>
                 <input id="search" type="search" minlength="3" incremental>
                 <div id="searchResults" class="search-results"></div>
-                <button type="button" onclick="searchPokemonNames()">Suchen</button>
+                <div class="d_flex_c_c">
+                    <button class="btn-search" type="button" onclick="searchPokemonNames()">Suchen</button>
+                    <button class="btn-search" id="clearSearchBtn" onclick="clearSearch()">Clear Search</button>
+                </div>
             </div>
         </div>
     </header>

@@ -10,13 +10,18 @@ async function init() {
     currentNames = pokemonList;
     setTimeout(() => {
         hideSpinner();
-        renderNames();
+        renderSearchResults();
     }, 2000);
 }
 
 // Open/close Dialog
+/**
+ * open normal Dialog
+ * @param {number} index - Index for pokemonList-Array
+ */
 async function openDialog(index) {
     let dialogRef = document.getElementById('pokemonDialog');
+    resetDialogBg(dialogRef);
     if (index < 0) {
         index = pokemonList.length - 1;
     }
@@ -30,26 +35,40 @@ async function openDialog(index) {
     const iconsHTML = getPokemonTypeIcons(index);
     document.getElementById('pokemonDialog').innerHTML = getPokemonDialogTemplate(index, iconsHTML);
     updateRefs();
-    resetDialogBg(dialogRef);
     let pokemonType = pokemonList[index].types[0].type.name;
     dialogRef.classList.add(`bg_${pokemonType}`);
     dialogRef.showModal();
     document.body.classList.add("no-scroll");
 }
 
-function closeDialog(index) {
-    let dialogRef = document.getElementById('pokemonDialog');
+function openDialogFiltered(filteredIndex) {
+    const dialogRef = document.getElementById('pokemonDialog');
+    if (filteredIndex < 0) filteredIndex = currentNames.length - 1;
+    if (filteredIndex >= currentNames.length) filteredIndex = 0;
+    const pokemon = currentNames[filteredIndex];
+    dialogRef.innerHTML = getFilteredPokemonDialogTemplate(filteredIndex);
+    updateRefs();
     resetDialogBg(dialogRef);
-    // let pokemonType = pokemonList[index].types[0].type.name;
-    // dialogRef.classList.remove(`bg_${pokemonType}`)
+    const pokemonType = pokemon.types[0].type.name;
+    dialogRef.classList.add(`bg_${pokemonType}`);
+    dialogRef.showModal();
+    document.body.classList.add("no-scroll");
+}
+
+/**
+ * remove all bg_ classes from Dialog
+ * @param {HTMLElement} dialogRef 
+ */
+function closeDialog() {
+    const dialogRef = document.getElementById('pokemonDialog');
+    resetDialogBg(dialogRef);
     dialogRef.close();
     document.body.classList.remove("no-scroll");
 }
 
 function resetDialogBg(dialogRef) {
-    dialogRef.classList.forEach(c => {
-        if (c.startsWith("bg_")) dialogRef.classList.remove(c);
-    });
+    const bgClasses = Array.from(dialogRef.classList).filter(c => c.startsWith("bg_"));
+    bgClasses.forEach(c => dialogRef.classList.remove(c));
 }
 
 function getPokemonTypeIcons(index) {
@@ -101,60 +120,21 @@ function toggleThirdDetails() {
 async function nextPokemon() {
     showSpinner();
     try {
-        pokemonList = await fetchNextPokemon();
-        // await fetchPokemonData(pokemonList);
-        offset += limit;
+        const newPokemon = await fetchNextPokemon();
+        pokemonList = pokemonList.concat(newPokemon);
+
+        const filterWord = document.getElementById('search').value.toLowerCase();
+        if (filterWord.length >= 1) {
+
+            currentNames = pokemonList.filter(p => p.name.toLowerCase().includes(filterWord));
+        } else {
+
+            currentNames = pokemonList;
+        }
+
+        renderSearchResults();
     } catch (error) {
-        console.error("Fehler beim Initialisieren:", error)
+        console.error("Fehler beim Laden der nächsten Pokémon:", error);
     }
-    setTimeout(() => {
-        hideSpinner();
-    }, 2000);
-}
-
-// search function
-function renderNames() {
-    const pokeContainer = document.getElementById('allPokemon');
-
-    const filterWord = document.getElementById('search').value.toLowerCase();
-    if (filterWord.length >= 1 && currentNames.length === 0) {
-        document.getElementById('allPokemon').innerHTML = getNoSearchTemplate(filterWord);
-        return;
-    }
-    let search = "";
-    if (currentNames.length === 0) {
-        search = noSearch();
-    } else {
-        search = renderSearch();
-    }
-    pokeContainer.innerHTML = search;
-}
-
-function noSearch() {
-    let search = "";
-    for (let i = 0; i < pokemonList.length; i++) {
-        const icons = getPokemonTypeIcons(i);
-        search += getAllPokemonTemplate(i, icons);
-    }
-    return search;
-}
-
-function renderSearch() {
-    let search = "";
-    for (let i = 0; i < currentNames.length; i++) {
-        const searchIndex = pokemonList.indexOf(currentNames[i]);
-        const icons = getPokemonTypeIcons(searchIndex);
-        search += getAllPokemonTemplate(searchIndex, icons);
-    }
-    return search;
-}
-
-function searchPokemonNames(filterWord) {
-    filterWord = document.getElementById('search').value.toLowerCase();
-    if (filterWord.length >= 1) {
-        currentNames = pokemonList.filter(p => p.name.toLowerCase().includes(filterWord));
-    } else {
-        currentNames = [];
-    }
-    renderNames();
+    hideSpinner();
 }
