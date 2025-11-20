@@ -8,6 +8,7 @@ async function init() {
         console.error("Fehler beim Initialisieren:", error)
     }
     currentNames = pokemonList;
+    actuallyList = pokemonList;
     setTimeout(() => {
         hideSpinner();
         renderNames();
@@ -19,13 +20,14 @@ async function openDialog(index) {
     let dialogRef = document.getElementById('pokemonDialog');
     index = dialogIndex(index);
     if (index === null) return;
-    const iconsHTML = getPokemonTypeIcons(index);
-    document.getElementById('pokemonDialog').innerHTML = getPokemonDialogTemplate(index, iconsHTML);
+    const pokemon = actuallyList[index];
+    const iconsHTML = getPokemonTypeIcons(pokemon);
+    document.getElementById('pokemonDialog').innerHTML = getPokemonDialogTemplate(index, iconsHTML, pokemon);
     updateRefs();
     dialogRef.classList.forEach(cls => {
         if (cls.startsWith("bg_")) dialogRef.classList.remove(cls);
     });
-    let pokemonType = pokemonList[index].types[0].type.name;
+    let pokemonType = pokemon.types[0].type.name;
     dialogRef.showModal();
     document.body.classList.add("no-scroll");
     dialogRef.classList.add(`bg_${pokemonType}`);
@@ -33,12 +35,12 @@ async function openDialog(index) {
 
 function dialogIndex(index) {
     if (index < 0) {
-        index = pokemonList.length - 1;
+        index = actuallyList.length - 1;
     }
-    if (index > pokemonList.length - 1) {
+    if (index > actuallyList.length - 1) {
         index = 0;
     }
-    if (!pokemonList[index]) {
+    if (!actuallyList[index]) {
         console.error("Ungültier Pokemon Index", index);
         return null;
     }
@@ -53,24 +55,25 @@ function closeDialog(index) {
     document.body.classList.remove("no-scroll");
 }
 
-function getPokemonTypeIcons(index) {
-    updateRefs(index);
-    const firstAttribut = pokemonList[index].types[0].type.name;
-    const firstType = TypeData[firstAttribut];
-    const firstTypeIcon = firstType?.icon;
+function getPokemonTypeIcons(pokemon) {
+    if (!pokemon || !pokemon.types) return "";
 
-    const secondAttribut = pokemonList[index].types[1]?.type?.name;
-    const secondType = secondAttribut ? TypeData[secondAttribut] : null;
-    const secondTypeIcon = secondType?.icon;
+const firstAttribut = pokemon.types[0].type.name;
+const firstType = TypeData[firstAttribut];
+const firstTypeIcon = firstType?.icon;
 
-    let iconsHTML = "";
-    if (firstTypeIcon) {
-        iconsHTML += getFirstTypeTemplate(firstAttribut, firstTypeIcon);
-    }
-    if (secondTypeIcon) {
-        iconsHTML += getSecondTypeTemplate(secondAttribut, secondTypeIcon);
-    }
-    return iconsHTML;
+const secondAttribut = pokemon.types[1]?.type?.name;
+const secondType = secondAttribut ? TypeData[secondAttribut] : null;
+const secondTypeIcon = secondType?.icon;
+
+let iconsHTML = "";
+if (firstTypeIcon) {
+    iconsHTML += getFirstTypeTemplate(firstAttribut, firstTypeIcon);
+}
+if (secondTypeIcon) {
+    iconsHTML += getSecondTypeTemplate(secondAttribut, secondTypeIcon);
+}
+return iconsHTML;
 }
 
 function updateRefs() {
@@ -109,51 +112,4 @@ async function nextPokemon() {
     setTimeout(() => {
         hideSpinner();
     }, 2000);
-}
-
-// search function
-function renderNames() {
-    const pokeContainer = document.getElementById('allPokemon');
-
-    const filterWord = document.getElementById('search').value.toLowerCase();
-    if (filterWord.length >= 1 && currentNames.length === 0) {
-        document.getElementById('allPokemon').innerHTML = getNoSearchTemplate(filterWord);
-        return;
-    }
-    let search = "";
-    if (currentNames.length === 0) {
-        search = noSearch();
-    } else {
-        search = renderSearch();
-    }
-    pokeContainer.innerHTML = search;
-}
-
-function noSearch() {
-    let search = "";
-    for (let i = 0; i < pokemonList.length; i++) {
-        const icons = getPokemonTypeIcons(i);
-        search += getAllPokemonTemplate(i, icons);
-    }
-    return search;
-}
-
-function renderSearch() {
-    let search = "";
-    for (let i = 0; i < currentNames.length; i++) {
-        const searchIndex = pokemonList.indexOf(currentNames[i]);
-        const icons = getPokemonTypeIcons(searchIndex);
-        search += getAllPokemonTemplate(searchIndex, icons);
-    }
-    return search;
-}
-
-function searchPokemonNames(filterWord) {
-    filterWord = document.getElementById('search').value.toLowerCase();
-    if (filterWord.length >= 1) {
-        currentNames = pokemonList.filter(p => p.name.toLowerCase().includes(filterWord));
-    } else {
-        currentNames = [];
-    }
-    renderNames();
 }

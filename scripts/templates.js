@@ -1,14 +1,16 @@
-function getAllPokemonTemplate(index, icons, iconsHTML) {
+function getAllPokemonTemplate(idx, icons,pokemon) {
+    const typeName = pokemon.types?.[0]?.type?.name || "normal";
+    
     return `
-        <div onclick="openDialog(${index})" class="mini-pokemon shadow_${pokemonList[index].types[0].type.name}">
+        <div onclick="openDialog(${idx})" class="mini-pokemon shadow_${typeName}">
             <header class="mini-pokemon-header">
-                <h2>#${pokemonList[index].id}</h2>
+                <h2>#${pokemon.id}</h2>
                 <h2>
-                    ${pokemonList[index].name}
+                    ${pokemon.name}
                 </h2>
             </header>
-            <main class="mini-pokemon-main bg_${pokemonList[index].types[0].type.name}">
-                <img class="mini-pokemon-img" src="${pokemonList[index].sprites.other.home.front_default}" alt="${pokemonList[index].name}">
+            <main class="mini-pokemon-main bg_${typeName}">
+                <img class="mini-pokemon-img" src="${pokemon.sprites.other.home.front_default}" alt="${pokemon.name}">
             </main>
             <footer id="pokemonType" class="mini-pokemon-footer">
                 ${icons}
