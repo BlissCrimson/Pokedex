@@ -12,8 +12,8 @@ async function fetchPokemonData(data) {
         try {
             const pokemonData = await fetch(element.url).then(r => r.json())
             pokemonList.push(pokemonData);
-            const icons = getPokemonTypeIcons(index);
-            document.getElementById('allPokemon').innerHTML += getAllPokemonTemplate(index, icons);
+            const icons = getPokemonTypeIcons(pokemonList.length - 1);
+            document.getElementById('allPokemon').innerHTML += getAllPokemonTemplate(index, icons, pokemonData);
         } catch (error) {
             console.error(`Fehler bei ${element.name}:`, error);
         }
@@ -32,7 +32,7 @@ async function fetchNextPokemon() {
             pokemonList.push(pokemonData);
             const globalIndex = pokemonList.length - 1;
             const iconsHTML = getPokemonTypeIcons(globalIndex);
-            document.getElementById('allPokemon').innerHTML += getAllPokemonTemplate(globalIndex, iconsHTML);
+            document.getElementById('allPokemon').innerHTML += getAllPokemonTemplate(globalIndex, iconsHTML, pokemonData);
         } catch (error) {
             console.error(`Fehler bei ${element.name}:`, error);
         }
