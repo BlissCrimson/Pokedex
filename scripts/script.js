@@ -22,21 +22,11 @@ async function init() {
 async function openDialog(index) {
     let dialogRef = document.getElementById('pokemonDialog');
     resetDialogBg(dialogRef);
-    if (index < 0) {
-        index = pokemonList.length - 1;
-    }
-    if (index > pokemonList.length - 1) {
-        index = 0;
-    }
-    if (!pokemonList[index]) {
-        console.error("Ungültier Pokemon Index", index);
-        return;
-    }
+    const ifIndex = ifIndex(index, pokemonList);
     const iconsHTML = getPokemonTypeIcons(index);
     document.getElementById('pokemonDialog').innerHTML = getPokemonDialogTemplate(index, iconsHTML);
     updateRefs();
-    let pokemonType = pokemonList[index].types[0].type.name;
-    dialogRef.classList.add(`bg_${pokemonType}`);
+    dialogRef.classList.add(`bg_${pokemonList[index].types[0].type.name}`);
     dialogRef.showModal();
     document.body.classList.add("no-scroll");
 }
@@ -71,16 +61,28 @@ function resetDialogBg(dialogRef) {
     bgClasses.forEach(c => dialogRef.classList.remove(c));
 }
 
+function ifIndex(index, pokemonList) {
+    if (index < 0) {
+        index = pokemonList.length - 1;
+    }
+    if (index > pokemonList.length - 1) {
+        index = 0;
+    }
+    if (!pokemonList[index]) {
+        console.error("Ungültier Pokemon Index", index);
+        return;
+    }
+    return index;
+}
+
 function getPokemonTypeIcons(index) {
     updateRefs(index);
     const firstAttribut = pokemonList[index].types[0].type.name;
     const firstType = TypeData[firstAttribut];
     const firstTypeIcon = firstType?.icon;
-
     const secondAttribut = pokemonList[index].types[1]?.type?.name;
     const secondType = secondAttribut ? TypeData[secondAttribut] : null;
     const secondTypeIcon = secondType?.icon;
-
     let iconsHTML = "";
     if (firstTypeIcon) {
         iconsHTML += getFirstTypeTemplate(firstAttribut, firstTypeIcon);
@@ -122,13 +124,10 @@ async function nextPokemon() {
     try {
         const newPokemon = await fetchNextPokemon();
         pokemonList = pokemonList.concat(newPokemon);
-
         const filterWord = document.getElementById('search').value.toLowerCase();
         if (filterWord.length >= 1) {
-
             currentNames = pokemonList.filter(p => p.name.toLowerCase().includes(filterWord));
         } else {
-
             currentNames = pokemonList;
         }
         renderSearchResults();
