@@ -1,4 +1,5 @@
 function getAllPokemonTemplate(index, icons, iconsHTML) {
+    const pokeImg = getCachedImage(pokemon.sprites.other.home.front_default);
     return `
         <div onclick="openDialog(${index})" class="mini-pokemon shadow_${pokemonList[index].types[0].type.name}">
             <header class="mini-pokemon-header">
@@ -8,7 +9,7 @@ function getAllPokemonTemplate(index, icons, iconsHTML) {
                 </h2>
             </header>
             <main class="mini-pokemon-main bg_${pokemonList[index].types[0].type.name}">
-                <img class="mini-pokemon-img" src="${pokemonList[index].sprites.other.home.front_default}" alt="${pokemonList[index].name}">
+                <img class="mini-pokemon-img" src="${pokeImg.src}" alt="${pokemonList[index].name}">
             </main>
             <footer id="pokemonType" class="mini-pokemon-footer">
                 ${icons}
@@ -34,6 +35,9 @@ function getSecondTypeTemplate(typeName, iconUrl) {
 }
 
 function getPokemonDialogTemplate(index, iconsHTML) {
+    const pokemon = pokemonList[index];
+    const pokeImgDefault = getCachedImage(pokemon.sprites.other.home.front_default);
+    const pokeImgShiny = getCachedImage(pokemon.sprites.other.home.front_shiny);
     const ability1 = pokemonList[index].abilities[0]?.ability?.name || "N/A";
     const ability2 = pokemonList[index].abilities[1]?.ability?.name || "";
     return `
@@ -44,7 +48,7 @@ function getPokemonDialogTemplate(index, iconsHTML) {
         </header>
         <main id="mainDialog" class="main-dialog">
             <div class="dialog-img d_flex_c_c">
-                <img class="pokemon-detail-img " src="${pokemonList[index].sprites.other.home.front_default}" alt="${pokemonList[index].name}">
+                <img class="pokemon-detail-img " src="${pokeImgDefault.src}" alt="${pokemonList[index].name}">
             </div>
             <section name="buttons" class="area-btn">
                 
@@ -134,7 +138,7 @@ function getPokemonDialogTemplate(index, iconsHTML) {
                 </div>                   
                 <div id="pokemonThirdDetails" class="pokemon-third-details d_none">
                     <div class="d_flex_c_c">
-                        <img class="pokemon-detail-shiny-img " src="${pokemonList[index].sprites.other.home.front_shiny}" alt="${pokemonList[index].name}">
+                        <img class="pokemon-detail-shiny-img " src="${pokeImgShiny.src}" alt="${pokemonList[index].name}">
                     </div>
                 </div>
             </section>
@@ -311,6 +315,7 @@ function getNoSearchTemplate(filterWord) {
 
 // search Templates
 function getFilteredPokemonTemplate(filteredIndex, icons, pokemon) {
+    const pokeImg = getCachedImage(pokemon.sprites.other.home.front_default);
     return `
         <div onclick="openDialogFiltered(${filteredIndex})" class="mini-pokemon shadow_${pokemon.types[0].type.name}">
             <header class="mini-pokemon-header">
@@ -318,7 +323,7 @@ function getFilteredPokemonTemplate(filteredIndex, icons, pokemon) {
                 <h2>${pokemon.name}</h2>
             </header>
             <main class="mini-pokemon-main bg_${pokemon.types[0].type.name}">
-                <img class="mini-pokemon-img" src="${pokemon.sprites.other.home.front_default}" alt="${pokemon.name}">
+                <img class="mini-pokemon-img" src="${pokeImg.src}" alt="${pokemon.name}">
             </main>
             <footer class="mini-pokemon-footer">
                 ${icons}
@@ -329,6 +334,8 @@ function getFilteredPokemonTemplate(filteredIndex, icons, pokemon) {
 
 function getFilteredPokemonDialogTemplate(filteredIndex) {
     const pokemon = currentNames[filteredIndex];
+    const pokeImgDefault = getCachedImage(pokemon.sprites.other.home.front_default);
+    const pokeImgShiny = getCachedImage(pokemon.sprites.other.home.front_shiny);
     const ability1 = pokemon.abilities[0]?.ability?.name || "N/A";
     const ability2 = pokemon.abilities[1]?.ability?.name || "";
 
@@ -338,7 +345,7 @@ function getFilteredPokemonDialogTemplate(filteredIndex) {
         </header>
         <main id="mainDialog" class="main-dialog">
             <div class="dialog-img d_flex_c_c">
-                <img class="pokemon-detail-img" src="${pokemon.sprites.other.home.front_default}" alt="${pokemon.name}">
+                <img class="pokemon-detail-img" src="${pokeImgDefault.src}" alt="${pokemon.name}">
             </div>
             <section name="buttons" class="area-btn">
                 <button class="btn-pokemon-details bg_${pokemon.types[0].type.name}" onclick="toggleFirstDetails()">
@@ -416,7 +423,7 @@ function getFilteredPokemonDialogTemplate(filteredIndex) {
 
                 <div id="pokemonThirdDetails" class="pokemon-third-details d_none">
                     <div class="d_flex_c_c">
-                        <img class="pokemon-detail-shiny-img" src="${pokemon.sprites.other.home.front_shiny}" alt="${pokemon.name}">
+                        <img class="pokemon-detail-shiny-img" src="${pokeImgShiny.src}" alt="${pokemon.name}">
                     </div>
                 </div>
             </section>

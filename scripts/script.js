@@ -131,8 +131,8 @@ async function nextPokemon() {
 
             currentNames = pokemonList;
         }
-
         renderSearchResults();
+        updateLoadMoreButtonText();
     } catch (error) {
         console.error("Fehler beim Laden der nächsten Pokémon:", error);
     }

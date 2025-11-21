@@ -1,13 +1,29 @@
 /* buttons */
-.btn-search{
+.btn-search {
     font-size: 16px;
     background-color: rgb(230, 207, 179);
     border-radius: 20px;
 }
-.btn-search:hover{
+
+.btn-search:hover {
     cursor: pointer;
     text-decoration: underline red;
 }
+
+.btn-search-more {
+    width: 300px;
+    height: 100%;
+    font-size: 26px;
+    background-color: #faebd7;
+    border: none;
+    border-radius: 30px;
+}
+
+.btn-search-more:hover {
+    cursor: pointer;
+    text-decoration: underline red;
+}
+
 .btn-plus-pokemon {
     width: 300px;
     height: 100%;

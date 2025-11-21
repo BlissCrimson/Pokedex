@@ -6,6 +6,7 @@ function searchPokemonNames() {
         currentNames = [];
     }
     renderSearchResults();
+    updateLoadMoreButtonText();
 }
 function renderSearchResults() {
     const pokeContainer = document.getElementById('allPokemon');
@@ -38,4 +39,17 @@ function renderAllPokemon() {
         html += getAllPokemonTemplate(i, icons);
     }
     pokeContainer.innerHTML = html;
+}
+
+function updateLoadMoreButtonText() {
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const filterWord = document.getElementById('search').value.toLowerCase();
+
+    if (filterWord.length >= 1) {
+        loadMoreBtn.classList.remove('btn-plus-pokemon');
+        loadMoreBtn.classList.add('btn-search-more');
+        loadMoreBtn.innerText = `Load more results for "${filterWord}"`;
+    } else {
+        loadMoreBtn.innerText = 'Load More';
+    }
 }

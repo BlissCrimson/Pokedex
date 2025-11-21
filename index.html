@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="./styles/style.css">
 
     <script src="./scripts/allVariables.js"></script>
+    <script src="./scripts/cacheStorage.js"></script>
     <script src="./scripts/loadingSpinner.js"></script>
     <script src="./scripts/templates.js"></script>
     <script src="./scripts/fetchApi.js"></script>
@@ -49,7 +50,7 @@
         </section>
         <section id="allPokemon" class="pokemon-mini-box"></section>
         <section class="more-Pokemon">
-            <button class="btn-plus-pokemon" onclick="nextPokemon()">Load More</button>
+            <button id="loadMoreBtn" class="btn-plus-pokemon" onclick="nextPokemon()">Load More</button>
         </section>
         <dialog id="pokemonDialog"> </dialog>
     </main>
