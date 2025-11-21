@@ -14,7 +14,6 @@ function renderSearchResults() {
         pokeContainer.innerHTML = getNoSearchTemplate(document.getElementById('search').value);
         return;
     }
-
     let html = "";
     for (let i = 0; i < currentNames.length; i++) {      // <-- loop over filtered array
         const globalIndex = pokemonList.indexOf(currentNames[i]);
@@ -29,6 +28,7 @@ function clearSearch() {
     searchInput.value = "";
     currentNames = [];
     renderAllPokemon();
+    updateLoadMoreButtonText();
 }
 
 function renderAllPokemon() {
@@ -44,7 +44,6 @@ function renderAllPokemon() {
 function updateLoadMoreButtonText() {
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     const filterWord = document.getElementById('search').value.toLowerCase();
-
     if (filterWord.length >= 1) {
         loadMoreBtn.classList.remove('btn-plus-pokemon');
         loadMoreBtn.classList.add('btn-search-more');
