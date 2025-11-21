@@ -18,7 +18,6 @@ let limit = 20;
 let offset = 20;
 let icons
 
-
 let pokemonNames = [];
 let currentNames = [];
 
