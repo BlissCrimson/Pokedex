@@ -30,10 +30,10 @@ async function fetchNextPokemon() {
     for (let element of data.results) {
         try {
             const pokemonData = await fetch(element.url).then(r => r.json());
-            newPokemon.push(pokemonData);
-            const icons = getPokemonTypeIcons(pokemonList.length);
-            document.getElementById('allPokemon').insertAdjacentHTML('beforeend', getAllPokemonTemplate(pokemonList.length, icons, pokemonData));
             pokemonList.push(pokemonData);
+            const newIndex = pokemonList.length - 1;
+            const icons = getPokemonTypeIcons(newIndex);
+            document.getElementById('allPokemon').insertAdjacentHTML('beforeend', getAllPokemonTemplate(newIndex, icons, pokemonData));
         } catch (error) {
             console.error(`Fehler bei ${element.name}:`, error);
         }
